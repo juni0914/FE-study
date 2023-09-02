@@ -128,3 +128,124 @@ function Timer() {
 
 export default Timer;
 ```
+
+<h1> 3. useRef</h1>
+
+### 🌟 정의 🌟
+<h4>
+	
+- useRef는 리액트에서 제공하는 Hook 중 하나로, DOM 요소에 직접 접근하거나 컴포넌트 내에서 변경되지 않는 값을 유지하는 데 사용된다.<br><br>
+- useRef를 사용하면 DOM 요소를 선택하거나 컴포넌트 내에서 가변적인 값을 저장할 수 있다.<br><br>
+
+</h4>
+<br>
+
+### 🚀 기본 구조 🚀
+
+```
+import React, { useRef } from 'react';
+
+function MyComponent() {
+  // useRef를 사용하여 변수를 생성
+  const myRef = useRef(initialValue);
+
+  return (
+    // ...
+  );
+}
+
+export default MyComponent;
+```
+
+### 🚢 기본 구조 설명 🚢
+<h4>
+	
+- useRef를 사용할 때 초기값(initialValue)을 전달할 수 있으며, 이 값은 .current 속성을 통해 접근할 수 있다. .current는 useRef 객체의 현재 값을 나타낸다. <br><br>
+
+</h4>
+<br>
+
+### 🌈 예시 코드 1. DOM 요소에 접근 🌈
+
+```
+import React, { useRef, useEffect } from 'react';
+
+function AutoFocusInput() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 input 요소에 자동으로 포커스 설정
+    inputRef.current.focus();
+  }, []);
+
+  return <input ref={inputRef} />;
+}
+
+
+export default Timer;
+```
+<h4> 
+- useRef를 사용하여 DOM 요소에 직접 접근할 수 있다. 특히 포커스 설정, 스크롤 조작, 애니메이션 제어 등과 같은 작업에 유용하다.
+</h4><br>
+
+### 🌈 예시 코드 2. 가변 상태 유지 🌈 🌈
+
+```
+import React, { useRef, useEffect } from 'react';
+
+function Timer() {
+  const secondsRef = useRef(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      secondsRef.current += 1; // 컴포넌트 다시 렌더링되지 않음
+      console.log(`Elapsed Time: ${secondsRef.current} seconds`);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return (
+    <div>
+      <p>Elapsed Time: {secondsRef.current} seconds</p>
+    </div>
+  );
+}
+```
+<h4>
+- 컴포넌트의 렌더링과 무관하게 값을 유지할 수 있다. 이 값은 변경되어도 컴포넌트가 다시 렌더링되지 않는다.
+</h4><br>
+
+### 🌈 예시 코드 3. 이전 값 비교 🌈
+
+```
+import React, { useRef, useEffect } from 'react';
+
+function MyComponent() {
+  const prevValueRef = useRef(initialValue);
+
+  useEffect(() => {
+    // 이전 값과 현재 값을 비교
+    if (prevValueRef.current !== value) {
+      console.log('Value has changed:', value);
+    }
+
+    // 이전 값을 업데이트
+    prevValueRef.current = value;
+  }, [value]);
+
+  return (
+    // ...
+  );
+}
+
+```
+<h4> 
+-이전 값과 현재 값을 비교할 수 있다. 이전 값과 현재 값을 비교하면서 특정 동작을 수행할 때 유용하다.
+</h4><br>
+
+</h4>
+
+<br>
+
+
