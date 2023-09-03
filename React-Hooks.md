@@ -247,5 +247,67 @@ function MyComponent() {
 </h4>
 
 <br>
+<h1> 4. useContext</h1>
+
+### 🌟 정의 🌟
+<h4>
+	
+- useContext는 React의 훅 중 하나로, React 컴포넌트 간에 상태나 데이터를 공유하기 위해 사용된다.<br><br>
+- 이를 통해 상태를 props를 통해 일일이 전달하지 않고, 컴포넌트 트리에서 필요한 곳에서 데이터를 직접 사용할 수 있다.<br><br>
+
+</h4>
+<br>
+
+### 🌈 예시 코드 🌈
+
+```
+import React, { useContext, createContext } from 'react';
+
+// 데이터를 저장할 컨텍스트를 생성
+const MyContext = createContext();
+
+// 컨텍스트 프로바이더를 제공하는 상위 컴포넌트
+function MyProvider({ children }) {
+  const sharedData = 'This is shared data from context';
+
+  return (
+    <MyContext.Provider value={sharedData}>
+      {children}
+    </MyContext.Provider>
+  );
+}
+
+// 하위 컴포넌트에서 컨텍스트 사용
+function ChildComponent() {
+  // useContext를 사용하여 컨텍스트 데이터에 접근
+  const dataFromContext = useContext(MyContext);
+
+  return <div>{dataFromContext}</div>;
+}
+
+function App() {
+  return (
+    <MyProvider>
+      <ChildComponent />
+    </MyProvider>
+  );
+}
+
+export default App;
+
+```
+### ⛅ 설명 ⛅
+<h4>
+	
+1. createContext: createContext 함수로 컨텍스트를 생성한다. 이 함수는 컨텍스트 객체와 Provider 컴포넌트를 반환한다.<br>
+
+2. MyProvider: 상위 컴포넌트인 MyProvider는 MyContext.Provider 컴포넌트로 컨텍스트를 제공한다. value prop을 사용하여 컨텍스트에 공유할 데이터를 설정합니다. 이 컨텍스트는 자식 컴포넌트에서 사용할 수 있도록 한다.<br>
+
+3. ChildComponent: useContext 훅을 사용하여 컨텍스트 데이터에 접근한다. 이 컴포넌트는 컨텍스트에서 제공하는 데이터를 사용하여 UI를 렌더링한다.<br>
+
+4. App: 최상위 컴포넌트인 App은 MyProvider로 감싸져 있으며, 이 하위에 있는 ChildComponent에서 컨텍스트 데이터를 사용할 수 있도록 한다.<br>
+</h4>
+<br>
+<br>
 
 
