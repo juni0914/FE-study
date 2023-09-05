@@ -309,5 +309,63 @@ export default App;
 </h4>
 <br>
 <br>
+<h1> 5. useMemo</h1>
+
+### 🌟 정의 🌟
+<h4>
+	
+- useMemo는 리액트 훅 중 하나로, 계산 비용이 높은 함수의 결과 값을 캐시하고, 의존성 배열에 지정된 값들이 변경될 때만 다시 계산하여 성능을 최적화하는 데 사용된다.<br><br>
+
+</h4>
+<br>
+
+### 🌈 예시 코드 🌈
+
+```
+function expensiveAdd(a, b) {
+  console.log('Adding numbers...');
+  return a + b;
+}
+
+```
+<h4>이 함수를 useMemo를 사용하여 호출하면, 함수의 결과가 이전과 동일한 경우에는 이전 결과를 재사용하고, 의존성 배열에 지정된 값이 변경될 때만 함수를 다시 계산한다.</h4>
+
+```
+import React, { useMemo, useState } from 'react';
+
+function MyComponent() {
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  const result = useMemo(() => {
+    return expensiveAdd(x, y);
+  }, [x, y]);
+
+  return (
+    <div>
+      <p>X: {x}</p>
+      <p>Y: {y}</p>
+      <p>Result: {result}</p>
+      <button onClick={() => setX(x + 1)}>Increment X</button>
+      <button onClick={() => setY(y + 1)}>Increment Y</button>
+    </div>
+  );
+}
+
+export default MyComponent;
+
+
+```
+### ⛅ 설명 ⛅
+<h4>
+	
+1. 위의 코드에서 useMemo를 사용하여 expensiveAdd 함수를 호출하고 있습니다. 이 함수는 x와 y라는 두 개의 상태값을 의존성 배열로 갖고 있으며, 즉 x 또는 y가 변경될 때만 expensiveAdd 함수를 다시 호출하게 된다.
+
+2. 이렇게 함으로써, expensiveAdd 함수가 호출되는 횟수를 최적화할 수 있으며, 렌더링 성능을 향상시킬 수 있다. 그리고 화면에 렌더링되는 결과 역시 캐시된 값인 result를 보여주게 된다.<br>
+
+</h4>
+<br>
+<br>
+
 
 
