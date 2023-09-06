@@ -366,6 +366,50 @@ export default MyComponent;
 </h4>
 <br>
 <br>
+<h1> 6. useCallback</h1>
 
+### 🌟 정의 🌟
+<h4>
+	
+- useCallback은 리액트 훅 중 하나로, 함수를 메모이제이션하고 해당 함수의 의존성 배열에 지정된 값이 변경될 때만 새로운 함수를 생성한다. 주로 렌더링 성능 최적화를 위해 사용된다.<br><br>
+
+- 일반적으로 함수 컴포넌트 내에서 함수를 정의하면, 해당 함수는 컴포넌트가 리렌더링될 때마다 새로 생성된다. 이는 불필요한 함수 생성과 메모리 낭비를 초래할 수 있다. 이런 경우 useCallback을 사용하여 함수를 메모이제이션하면, 의존성 배열의 값이 변경될 때만 함수가 재생성되어 성능을 향상시킬 수 있다.<br><br>
+
+</h4>
+<br>
+
+### 🌈 예시 코드 🌈
+
+```
+import React, { useState, useCallback } from 'react';
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  // handleClick 함수를 메모이제이션
+  const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]); // count가 변경될 때만 handleClick 함수 재생성
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increment Count</button>
+    </div>
+  );
+}
+
+export default MyComponent;
+
+```
+
+### ⛅ 설명 ⛅
+<h4>
+	
+1. 위의 코드에서 handleClick 함수는 useCallback을 사용하여 정의되었다. 함수 내에서 count 상태값을 의존성 배열로 지정하였으므로, count 값이 변경될 때만 handleClick 함수가 재생성된다.
+
+2. 이렇게 하면 컴포넌트가 리렌더링되더라도 함수가 새로 생성되지 않고, 성능 최적화를 할 수 있다. 특히 콜백 함수를 자식 컴포넌트에 props로 전달할 때 유용하게 사용된다.<br>
+
+</h4>
 
 
