@@ -411,5 +411,222 @@ export default MyComponent;
 2. 이렇게 하면 컴포넌트가 리렌더링되더라도 함수가 새로 생성되지 않고, 성능 최적화를 할 수 있다. 특히 콜백 함수를 자식 컴포넌트에 props로 전달할 때 유용하게 사용된다.<br>
 
 </h4>
+<br>
+<br>
+<h1> 7. useReducer</h1>
+
+### 🌟 정의 🌟
+<h4>
+	
+- useReducer는 상태 관리를 위한 훅(Hook) 중 하나로, 컴포넌트 내에서 복잡한 상태 관리 로직을 다루는 데 도움을 주는 기능이다.<br><br>
+
+- 주로 컴포넌트의 상태를 변경하고 업데이트하는 로직을 분리하여 관리할 때 사용된다.<br><br>
+
+- useState와 함께 사용되지만, useReducer는 더 복잡한 상태 관리 시나리오에서 더 강력하고 유용하다.<br><br>
+
+🌟 useReducer의 핵심 개념은 "액션(Action)"과 "리듀서(Reducer)"다.<br><br>
+
+ 
+
+⭐ 액션(Action)
+- 액션은 상태를 변경하기 위해 발생하는 이벤트나 작업을 나타내는 객체다.
+
+- 주로 객체 안에 type 프로퍼티와 추가 데이터를 포함하고, 이 객체를 이용하여 상태 변경의 의도를 표현한다.<br><br>
+
+ 
+
+ 
+
+
+⚡리듀서(Reducer)
+- 리듀서는 현재 상태와 액션을 받아서 새로운 상태를 반환하는 순수 함수다.
+
+- 이 함수는 이전 상태를 변경하지 않고, 주어진 액션에 따라 새로운 상태를 생성하여 반환한다.
+
+- 리듀서 함수는 useReducer 훅 안에서 정의되며, 상태 변경 로직을 담당한다.<br><br>
+
+🌈 기본 구조
+
+```
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+- state: 현재 상태를 나타내는 변수
+- dispatch: 액션을 발생시키는 함수다. 이 함수를 호출하면 리듀서가 실행되고, 새로운 상태가 반환된다.
+- reducer: 상태를 변경하는 로직을 정의한 함수
+- initialState: 초기 상태를 나타내는 값
+</h4>
+<br>
+
+### 🌈 예시 코드(1) 🌈
+
+```
+import React, { useState, useReducer } from 'react';
+
+const ACTION_TYPES = {
+  deposit: 'deposit',
+  withdraw: 'withdraw' 
+};
+
+const reducer = (state, action) => {
+  switch (action.type){
+    case ACTION_TYPES.deposit:
+      return state + action.payload;
+    case ACTION_TYPES.withdraw:
+      return state - action.payload;
+    default:
+      return state;
+  }
+};
+
+function App() {
+  const [number, setNumber] = useState(0);
+  const [money, dispatch] = useReducer(reducer, 0);
+
+  return (
+    <div>
+      <h2>잔고 : {money} 원</h2>
+      <input
+        type="number"
+        value={number}
+        onChange={(e)=> setNumber(parseInt(e.target.value))}
+        step="10000"
+      />
+      <button
+        onClick={()=> dispatch({type: ACTION_TYPES.deposit, payload: number})}>예금</button>
+      <button
+        onClick={()=> dispatch({type: ACTION_TYPES.withdraw, payload: number})}>출금</button>
+    </div>
+  );
+}
+
+export default App;
+```
+### 🌈 예시 코드(2) 🌈
+
+```
+//Student.js
+
+import React from 'react'
+
+const Student = ({name, dispatch, id, isHere}) => {
+  return (
+    <div>
+    <span style={{
+        textDecoration: isHere ? 'line-through' : 'none',
+        color: isHere ? 'gray' : 'black'
+    }}
+    onClick={()=>{
+        dispatch({type: 'mark-student', payload: {id}})
+    }}>{name}</span>
+    <button onClick={()=>{
+        dispatch({type:'delete-student', payload: {id}})
+    }}>삭제</button>
+    </div>
+  )
+}
+
+export default Student
+```
+
+```
+//App.js
+
+import React, { useState, useReducer } from 'react';
+import Student from './Student';
+
+const ACTION_TYPES = {
+  addstudent: 'add-student',
+  deletestudent: 'delete-student',
+  markstudent: 'mark-student'
+}
+
+const reducer = (state, action) => {
+  switch (action.type){
+    case ACTION_TYPES.addstudent:
+      const name = action.payload.name;
+      const newStudent = {
+        id: Date.now(),
+        name: name,
+        isHere: false
+      };
+      return{
+        count: state.count + 1,
+        students: [...state.students, newStudent]
+      };
+    case ACTION_TYPES.deletestudent:
+      return{
+        count: state.count - 1,
+        students: state.students.filter((student) => student.id !== action.payload.id)
+      };
+    case ACTION_TYPES.markstudent:
+      return{
+        count: state.count,
+        students: state.students.map((student)=>{
+          if(student.id === action.payload.id){
+            return {...student, isHere: !student.isHere}
+          }
+          return student;
+        })
+      }
+    default:
+      return state;
+  }
+};
+
+const initialState = {
+  count: 0,
+  students: []
+}
+
+function App() {
+  const [name, setName] = useState('');
+  const [studentsInfo, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <div>
+      <h2>출석부</h2>
+      <p>총 학생 수 : {studentsInfo.count}</p>
+      <input
+        type="text"
+        value={name}
+        onChange={(e)=> setName(e.target.value)}
+      />
+      <button onClick={()=>{
+        dispatch({type: ACTION_TYPES.addstudent, payload: {name}});
+        setName('');
+      }}>추가</button>
+      {studentsInfo.students.map((student) =>{
+        return <Student 
+          key={student.id} 
+          name={student.name} 
+          dispatch={dispatch} 
+          id={student.id}
+          isHere={student.isHere}
+        />
+      })}
+    </div>
+  );
+}
+
+export default App;
+```
+
+### ⛅ 설명 ⛅
+<h4>
+	
+🔥 장점
+- useReducer를 사용하면 컴포넌트 내에서 복잡한 상태 로직을 더 간결하게 관리할 수 있으며, 상태 관리 코드를 컴포넌트 외부로 분리하여 재사용성을 높일 수 있다. 
+
+ 
+-  특히 상태 관리 로직이 복잡한 컴포넌트나 다수의 컴포넌트가 동일한 상태를 공유해야 하는 경우에 유용하다.
+
+
+👉
+
+- 하지만 간단한 state를 관리할 경우에는 그냥 간단하게 useState를 사용하는 것이 낫다.
+
+- 예를 들면 모달 창이 열리고 닫히는 경우.
+
+</h4>
 
 
