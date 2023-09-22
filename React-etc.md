@@ -52,3 +52,68 @@ React의 장점 중에는 Virtual DOM이 있다. <br><br>
 </h3>
 <br>
 <br>
+
+<h1> 2. Restful API</h1>
+
+### 🌟 Restful API의 정의 🌟<br>
+<h4>
+	
+✔ RESTful API(Representational State Transferful Application Programming Interface)는<br><br> 웹 애플리케이션의 데이터와 서비스를 외부에서 활용할 수 있도록 제공하는 인터페이스다.<br><br>
+RESTful API는 웹 리소스에 접근하고 조작하기 위한 규칙과 규약을 정의하며, HTTP 프로토콜을 사용하여 통신한다.<br><br>
+RESTful API를 이해하고 사용하는 것은 프론트엔드 개발자에게 매우 중요한 역할을 한다.<br><br><br><br>
+
+🔥 RESTful API에 대한 주요 개념과 이점 <br><br>
+
+- 자원(Resource): RESTful API에서는 모든 것이 리소스로 표현된다.<br><br>
+이 리소스는 URI(Uniform Resource Identifier)로 식별되며, 프론트엔드 개발자는 이 URI를 통해 리소스에 접근하고 조작한다. <br><br>
+예를 들어, /users, /products와 같은 리소스를 다룬다.<br><br>
+
+- HTTP 메서드: HTTP 메서드(GET, POST, PUT, DELETE 등)는 RESTful API에서 다양한 작업을 수행하는 데 사용된다. <br><br>
+프론트엔드 개발자는 이 메서드를 사용하여 리소스를 가져오기, 생성하기, 수정하기, 삭제하기 등의 작업을 수행한다. <br><br>
+
+- 상태(State): RESTful API는 상태를 관리하며, 클라이언트와 서버 간의 통신을 통해 상태를 변경하거나 가져올 수 있다. <br><br>
+이를 통해 프론트엔드 개발자는 원격 서버에 저장된 데이터를 가져오고 업데이트할 수 있다.<br><br>
+
+- 표현(Representation): 리소스의 상태는 다양한 표현 형식으로 표시된다. <br><br>
+주로 JSON 또는 XML 형식을 사용하며, 프론트엔드 개발자는 이 데이터를 파싱하여 화면에 표시하거나 다른 작업에 활용한다. <br><br>
+
+- 무상태(Stateless): RESTful API는 무상태성을 가지고 있으며, 각 요청은 독립적으로 처리된다. <br><br>
+이는 서버가 클라이언트의 상태를 관리하지 않으며, 프론트엔드 개발자는 필요한 정보를 요청과 함께 제공해야 한다.<br><br>
+
+- 유니폼 인터페이스(Uniform Interface): RESTful API는 일관된 인터페이스를 제공하며, <br><br>
+이를 통해 프론트엔드 개발자는 다양한 서버와 통신하는 데 일관된 방법을 사용할 수 있다.<br><br>
+
+- URI 설계: URI는 리소스를 식별하는 데 중요하다. <br><br>
+명확하고 의미 있는 URI 설계는 API의 사용성을 높이고 프론트엔드 개발자가 빠르게 이해하고 활용할 수 있도록 도움을 준다.
+</h4>
+
+### 🌈 예시 코드 🌈<br>
+
+```
+// RESTful API 엔드포인트 URL
+const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+// GET 요청을 보내는 함수
+async function fetchPosts() {
+  try {
+    const response = await fetch(apiUrl);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log('서버로부터 받은 데이터:', data);
+    
+    // 여기에서 데이터를 활용하여 웹 페이지에 표시할 수 있습니다.
+  } catch (error) {
+    console.error('오류 발생:', error);
+  }
+}
+
+// GET 요청 실행
+fetchPosts();
+
+```
+<br>
+<br>
