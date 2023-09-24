@@ -117,3 +117,78 @@ fetchPosts();
 ```
 <br>
 <br>
+
+<h1> 3. forwardRef DOM</h1>
+
+## 🌟 정의 🌟
+<h4>
+	
+- 함수 컴포넌트에서 ref 속성을 전달하고, 해당 ref를 자식 컴포넌트에 직접 전달하도록 도와주는 기능이다.<br><br>
+- 이를 통해 함수 컴포넌트가 ref를 받아서 자식 컴포넌트에게 전달할 때 발생할 수 있는 문제를 해결할 수 있다.<br><br>
+- forwardRef는 주로 컴포넌트 간 통신이나 DOM 요소에 대한 직접적인 접근이 필요한 경우에 사용된다.<br><br>
+
+</h4>
+<br>
+
+### 🌈 forwardRef의 주요 특징과 사용 방법 🌈
+
+<h4>
+	
+- forwardRef 함수 사용 : forwardRef 함수를 호출하여 컴포넌트를 생성한다. 이 함수는 두 개의 인자를 받는다. (props와 ref)<br><br>
+
+- ref 속성 전달 : forwardRef로 생성한 컴포넌트를 다른 컴포넌트에서 사용할 때, ref 속성을 전달한다.<br> 이 ref는 함수 컴포넌트에서 사용될 수 있다.<br><br>
+
+- ref 전달 : forwardRef 함수 내에서 전달받은 ref를 자식 컴포넌트(또는 DOM 요소)에 전달한다.<br><br>
+
+이렇게 하면 함수 컴포넌트가 ref 속성을 받아서 자식 컴포넌트에게 직접 전달할 수 있으며, ref를 사용하여 자식 컴포넌트의 DOM 요소에 접근할 수 있다.<br><br>
+
+</h4>
+
+### ⛅ 예시 코드 ⛅
+<h4>
+	
+
+```
+import React, { forwardRef, useRef, useImperativeHandle } from 'react';
+
+// forwardRef로 컴포넌트 생성
+const CustomInput = forwardRef((props, ref) => {
+  const inputRef = useRef(null);
+
+  // useImperativeHandle을 사용하여 외부에서 접근 가능한 메서드 정의
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    },
+    // 다른 커스텀 메서드들도 여기에서 정의할 수 있다.
+  }));
+
+  return <input type="text" ref={inputRef} />;
+});
+
+// 부모 컴포넌트
+function ParentComponent() {
+  const inputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    // 자식 컴포넌트의 focus 메서드 호출
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <CustomInput ref={inputRef} />
+      <button onClick={handleButtonClick}>입력란에 포커스 주기</button>
+    </div>
+  );
+}
+
+```
+
+- 위의 코드에서 CustomInput 컴포넌트는 forwardRef를 사용하여 ref를 받아서 input 요소에 직접 전달한다.<br><br>
+- useImperativeHandle을 사용하여 외부에서 접근 가능한 메서드를 정의하고, <br>
+  부모 컴포넌트에서는 ref를 사용하여 CustomInput 컴포넌트의 메서드를 호출한다. <br><br>
+- 이를 통해 부모 컴포넌트는 자식 컴포넌트의 DOM 요소나 메서드에 접근할 수 있다. <br><br>
+</h4>
+<br>
+<br>
