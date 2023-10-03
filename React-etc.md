@@ -18,7 +18,7 @@
 
 ![image](https://github.com/juni0914/react-blog/assets/100837725/b7e46b5a-a229-4ff4-90b4-b3b8ed722698)
 
-<h4> - DOM은 HTML과 스크립팅 언어(Javascript)를 서로 이어주는 역할 </h4><br>
+<h4> - DOM은 HTML과 스크립팅 언어(Javascript)를 서로 이어주는 역할이다. </h4><br>
 
 ![image](https://github.com/juni0914/react-blog/assets/100837725/e4e64b7a-befb-48fd-a25d-b3a2f0911c78)
 
