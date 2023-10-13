@@ -268,3 +268,47 @@ function ParentComponent() {
 
 <br>
 <br>
+<h1> 5. Life Cycle</h1>
+
+## 🌟 정의 🌟
+<h4>
+	
+
+- 컴포넌트가 생성, 업데이트 및 제거되는 과정을 다루는 메서드의 집합이다.<br><br>
+- 이러한 라이프사이클 메서드를 활용하여 컴포넌트의 동작을 제어하고 상태 변화에 대응할 수 있다.<br><br>
+- 리액트 16.3 버전 이후부터 클래스 컴포넌트와 함수형 컴포넌트에서 라이프사이클을 사용할 수 있다.<br><br>
+
+
+</h4>
+<br>
+
+### 🌈 Life Cycle의 주요 단계 🌈<br>
+![image](https://github.com/juni0914/React-study/assets/100837725/5778466c-c767-49ba-a55d-b930519961cc)
+<br><br>
+<h4>
+
+
+ <br><br>
+1. 마운팅 (Mounting)<br><br>
+
+constructor(): 컴포넌트의 생성자 메서드로, 초기 설정 및 상태 초기화를 처리한다.<br><br>
+render(): 컴포넌트의 UI를 렌더링한다.<br><br>
+componentDidMount(): 컴포넌트가 실제 DOM에 마운트된 직후 호출되며, 초기 데이터 로딩이나 외부 리소스 요청과 같은 비동기 작업을 처리하기에 적합하다.<br><br><br><br>
+
+2.업데이팅 (Updating)<br><br>
+
+shouldComponentUpdate(): 컴포넌트의 업데이트 여부를 결정하는 메서드로, 성능 최적화에 활용된다.<br><br>
+render(): 업데이트된 컴포넌트의 UI를 렌더링한다.<br><br>
+componentDidUpdate(): 컴포넌트 업데이트가 완료된 직후 호출되며, 업데이트 이후의 작업을 처리하기에 적합한다.<br><br><br><br>
+
+3.언마운팅 (Unmounting)<br><br>
+componentWillUnmount(): 컴포넌트가 언마운트되기 전에 호출되며, 리소스 정리나 이벤트 리스너 제거와 같은 정리 작업을 수행한다.<br><br><br><br>
+</h4>
+
+<br><br>
+
+</h4>
+
+
+<br>
+<br>
