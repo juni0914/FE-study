@@ -111,3 +111,58 @@ myPromise
 </h4>
 <br>
 <br>
+
+<h1> 3. TCP와 UDP</h1>
+
+### 🌟 정의 🌟
+<h4>
+	
+- TCP (Transmission Control Protocol)와 UDP (User Datagram Protocol)는 둘 다 컴퓨터 네트워크에서<br><br>
+- 데이터 통신을 위한 프로토콜로, 전송 계층(Transport Layer)에서 작동한다. <br><br>
+
+</h4>
+<br>
+
+![image](https://github.com/juni0914/React-study/assets/100837725/81f6bb9c-b537-4e11-ab23-0586b19e13ca)
+
+
+### ⛅ 설명 ⛅
+<h2>TCP (Transmission Control Protocol)</h2>
+<h4><br><br>
+
+1. 연결 지향성 (Connection-Oriented): TCP는 연결 지향적인 프로토콜로, 데이터를 전송하기 전에 연결을 설정하고, 데이터를 안전하게 전송한 후에 연결을 해제한다.<br><br>
+
+
+2. 신뢰성 (Reliability): TCP는 데이터 전송의 신뢰성을 중요시한다. 손실된 패킷을 재전송하고, 순서를 보장하여 데이터의 신뢰성을 확보한다.<br><br>
+
+
+3. 흐름 제어 (Flow Control): TCP는 데이터의 흐름을 관리하고 과부하를 방지하기 위한 흐름 제어 메커니즘을 제공한다.<br><br>
+
+
+4. 에러 검출 및 복구 (Error Detection and Correction): TCP는 에러를 검출하고 복구하기 위한 메커니즘을 가지며, 데이터의 완전성을 보장한다.<br><br>
+
+
+5. 높은 오버헤드: TCP 헤더에는 연결 관리 및 신뢰성을 위한 추가 정보가 포함되므로 오버헤드가 크다.<br><br>
+
+
+6. 사용 사례: 웹 브라우징, 파일 전송 (FTP), 이메일 (SMTP, POP3), 웹 서버 (HTTP)와 같이 데이터 신뢰성이 중요한 어플리케이션에서 사용된다.<br><br>
+
+</h4>
+
+
+<h2>UDP (User Datagram Protocol)</h2>
+<h4><br><br>
+	
+1. 비연결성 (Connectionless): UDP는 비연결성 프로토콜로, 데이터를 전송할 때 연결을 설정하거나 해제하지 않는다.<br><br>
+
+2. 비신뢰성 (Unreliable): UDP는 데이터 패킷의 신뢰성을 보장하지 않다. 데이터 손실이나 순서 변경이 발생할 수 있다.<br><br>
+
+3. 빠른 전송 (Fast Transmission): UDP는 데이터를 빠르게 전송하기 위해 효율적인 프로토콜로 설계되었다.<br><br>
+
+4. 낮은 오버헤드: UDP 헤더에는 TCP보다 적은 오버헤드가 포함되며, 이는 데이터를 빠르게 전송하는 데 도움이 된다.<br><br>
+
+5. 사용 사례: 음성 통화 (VoIP), 비디오 스트리밍, 게임 서버, DNS 서비스 및 실시간 데이터 스트리밍과 같이 데이터 레이턴시가 더 중요한 어플리케이션에서 사용된다.<br><br><br><br>
+- ✔ 이러한 차이로 인해 TCP는 데이터 신뢰성이 중요한 어플리케이션에 적합하며, UDP는 실시간 데이터 전송이 필요한 곳에 적합하다.<br><br>
+ 선택은 어플리케이션의 요구사항과 데이터 전달의 중요성에 따라 달라진다.
+</h4>
+<br>
