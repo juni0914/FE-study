@@ -126,7 +126,7 @@ myPromise
 ![image](https://github.com/juni0914/React-study/assets/100837725/81f6bb9c-b537-4e11-ab23-0586b19e13ca)
 
 
-### ⛅ 설명 ⛅
+
 <h2>TCP (Transmission Control Protocol)</h2>
 <h4><br><br>
 
