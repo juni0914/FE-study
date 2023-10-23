@@ -7,3 +7,4 @@
 
 ### [FE](https://github.com/juni0914/React-study/blob/main/frontend.md/)
 
+### [TypeScript](https://github.com/juni0914/React-study/blob/main/TypeScript-study.md/)
