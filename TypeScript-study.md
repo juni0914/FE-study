@@ -62,4 +62,307 @@
 <br>
 <br>
 
-<br>
+## ⚡ 기본 타입 ⚡
+
+<h3> 1. 문자열</h3>
+<h4>
+	
+```
+let car : string = 'string';
+```
+</h4>
+<h3> 2. 숫자</h3>
+<h4>
+	
+```
+let age : number = 25;
+```
+</h4>
+<h3> 3. boolean</h3>
+<h4>
+	
+```
+let isAdult : boolean = true;
+```
+</h4>
+<h3> 4. 숫자 배열</h3>
+<h4>
+	
+```
+let num : number[] = [1,2,3];
+let num : Array<number> = [1,2,3];
+```
+</h4>
+<h3> 4. 문자열 배열</h3>
+<h4>
+	
+```
+let week : string[] = ['mon','tue','wed'];
+let num : Array<string> = ['mon','tue','wed'];
+```
+</h4>
+<h3> 5. 튜플</h3>
+<h4>
+	
+```
+let tup : [string, number];
+```
+</h4>
+<h3> 6. void, never</h3>
+<h4>
+	
+```
+function sayHello() : void{
+	console.log('Hello');
+}
+
+function showError() : never{
+	throw new Error();
+}
+
+function infLoop() : never{
+	while(true){
+		
+	}
+}
+```
+</h4>
+<h3> 7. enum</h3>
+<h4>
+	
+```
+enum OS {
+	Window,		// 0
+	Ios,		// 1
+	Android		// 2
+}
+```
+</h4>
+<h3> 8. null, undefined</h3>
+<h4>
+	
+```
+let a : null = null;
+let b : undefined = undefined;
+```
+</h4>
+
+## 🍀 인터페이스 🍀
+<h3> 1. 형식</h3>
+<h4>
+	
+```
+type Score = 'A' | 'B' | 'C' | 'F';
+
+interface User{
+	name : string;
+	age : number;
+	gender? : string;			// 옵셔널 부분이라 있어도 되고 없어도 됨. 다만, 있으면 string으로
+	readonly birthYear : number;		// 읽기 전용이기에 수정은 불가능
+	[grade:number] : Score;			// 지정한 타입만 사용이 가능
+}
+
+let user : User = {
+	name : 'lee',
+	age : 25,
+	birthYear : 1999,
+	1 : 'A',
+	2 : 'B'
+}
+```
+</h4>
+<h3> 2. 인터페이스 함수</h3>
+<h4>
+	
+```
+interface Add {
+	(num1 : number, num2 : number) : number;
+}
+
+const add : Add = function(x,y) {
+	return x + y;
+}
+
+add(10, 20);		// 30
+
+interface IsAdult {
+	(age : number) : boolean;
+}
+
+const a : IsAdult = (age) => {
+	return age > 19;
+}
+
+a(25)		// true
+```
+</h4>
+<h3> 3. 인터페이스 클래스</h3>
+<h4>
+	
+```
+interface Car {
+	color : string;
+	wheels : number;
+	start() : void;
+}
+
+class Benz implements Car {
+	color = 'red';
+	wheels = 4;
+	start(){
+		console.log('go....');
+	}
+}
+```
+</h4>
+
+## ⭐ 함수 ⭐
+<h3> 1. 형식</h3>
+<h4>
+	
+```
+function hello(name: string, age?: number): string {
+	if(age !== undefined) {
+		return `Hello, ${name}. You are ${age}.`;
+	}else{
+		return `Hello, ${name}`;
+	}
+}
+
+console.log(hello("Sam"));
+console.log(hello("Sam",25));
+```
+</h4>
+
+<h3> 2. 나머지 매개변수</h3>
+<h4>
+	
+```
+function add(...nums: number[]) {
+	return nums.reduce((result, num) => result + num, 0);
+}
+
+add(1,2,3);
+add(1,2,3,4,5,6,7,8,9,10);
+```
+</h4>
+
+<h3> 3. this 함수</h3>
+<h4>
+	
+```
+interface User {
+	name: string;
+}
+
+const Sam: User = {name: 'Sam'}
+
+function showName(this:User, age:number, gender:'m'|'f'){
+	console.log(this.name, age, gender)
+}
+
+const a = showName.bind(Sam);
+a(30,'m');
+```
+</h4>
+
+<h3> 4. 함수 오버로드</h3>
+<h4>
+	
+```
+interface User {
+	name: string;
+	age: number;
+}
+
+function join(name: string, age: string): string;
+function join(name: string, age: number): User;
+function join(name: string, age: number | string): User | string {
+	if(typeof age === "number"){
+		return{
+			name,
+			age,
+		};
+	}else{
+		return "나이는 숫자로 입력하세요";
+	}
+}
+
+const sam: User = join("Sam", 30);
+const jane: string = join("jane", "30");
+```
+</h4>
+
+## 🌙 리터럴, 유니온 / 교차 타입 🌙
+<h3> 1. 리터럴</h3>
+
+<h4>	
+	
+```
+const userName1 = "Bob";
+let userName2 : string | number = "Tom";
+
+type Job = "police" | "developer" | "teacher";
+
+interface User {
+	name : string;
+ 	job : Job;
+}
+
+const user : User = {
+	name : "Bob",
+ 	job : "developer"
+}
+```
+
+</h4>
+<h3> 2. 유니온</h3>
+<h4>
+	
+```
+interface Car {
+	name: "car";
+ 	color: string;
+  	start(): void;
+}
+
+interface Mobile {
+	name: "mobile";
+ 	color: string;
+  	call(): void;
+}
+
+function getGift(gift: Car | Mobile) {		// 식별 가능한 유니온 타입
+	console.log(gift.color);
+ 	if(gift.name === "car"){
+		gift.start();
+  	}else{
+		gift.call();
+    	}
+}
+```
+
+</h4>
+<h3> 3. 교차 타입</h3>
+<h4>
+	
+```
+interface Car {
+	name: string;
+  	start(): void;
+}
+
+interface Toy {
+	name: string;
+ 	color: string;
+	price: number;
+}
+
+const toyCar: Toy & Car = {
+	name : "타요",
+ 	start(){},
+  	color: "blue",
+   	price: 1000
+}
+```
+</h4>
