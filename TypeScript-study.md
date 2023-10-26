@@ -366,3 +366,246 @@ const toyCar: Toy & Car = {
 }
 ```
 </h4>
+
+## 🌷 제네릭 🌷
+<h3> 1. 일반적인 제네릭</h3>
+
+<h4>	
+	
+```
+function getSize<T>(arr: T[]) : number {
+	return arr.length;
+}
+
+const arr1 = [1,2,3];
+getSize(arr1); 		//3
+
+const arr2 = ["a","b","c"];
+getSize(arr2); 		//3
+
+const arr3 = [false, true, true];
+getSize(arr3); 		//3
+
+```
+
+</h4>
+<h3> 2. 인터페이스에서의 제네릭</h3>
+<h4>
+	
+```
+interface Mobile {
+	name: string;
+ 	price: number;
+  	option: any;
+}
+
+interface Mobile<T> {
+	name: "mobile";
+ 	color: string;
+  	call(): void;
+}
+
+const m1: Mobile<{color: string, coupon: boolean}> = {
+	name: "s22",
+	price: 1000,
+	option: {
+		color: "red",
+		coupon: false,
+	}
+}
+
+const m2: Mobile<string> = {
+	name: "s22",
+	price: 1000,
+	option: "good"
+}
+
+```
+
+</h4>
+<h3> 3. 제네릭 + 함수</h3>
+<h4>
+	
+```
+interface User {
+	name: string;
+  	age: number;
+}
+
+interface Car {
+	name: string;
+  	color: string;
+}
+
+interface Book {
+	price: number;
+}
+
+const user: User = { name: "a", age: 10 };
+const car: Car = { name: "benz", color: "red"};
+const book: Book = { price: 3000 };
+
+function showName<T extends { name: string}>(data:T): string {
+	return data.name;
+}
+
+showName(user);
+showName(car);
+showName(book); 	// error
+
+```
+</h4>
+
+## 🚀 유틸리티 타입 🚀
+<h3> 1. keyof</h3>
+
+<h4>	
+	
+```
+interface User {
+	id: number;
+	name: string;
+	age: number;
+	gender: "m" | "f";
+}
+
+type UserKey = keyof User; 	// 'id' | 'name' | 'age' | 'gender'
+
+const uk:UserKey = "age";
+```
+
+</h4>
+<h3> 2. Partial<T></h3>
+<h4>
+	
+```
+interface User {
+	id: number;
+	name: string;
+	age: number;
+	gender: "m" | "f";
+}
+
+let admin: Partial<User> = {
+	id: 1,
+	name: "Bob"
+};
+
+```
+
+</h4>
+<h3> 3. Required<T></h3>
+<h4>
+	
+```
+interface User {
+	id: number;
+	name: string;
+	age?: number;
+}
+
+let admin: Required<User> = {
+	id: 1,
+	name: "Bob",
+	age: 30, 	// 모든 속성이 필수가 되어서 age속성이 필요함
+};
+
+```
+</h4>
+
+<h3> 4. Readonly<T></h3>
+<h4>
+	
+```
+interface User {
+	id: number;
+	name: string;
+	age?: number;
+}
+
+let admin: Readonly<User> = {
+	id: 1,
+	name: "Bob",
+};
+
+admin.id = 4;	// error
+
+```
+</h4>
+
+<h3> 5. Record<K,T></h3>
+<h4>
+	
+```
+interface User {
+	id: number;
+	name: string;
+	age: number;
+}
+
+function isValid(user: User) {
+	const result: Record<keyof User, boolean> = {
+		id: user.id > 0,
+		name: user.name !== "",
+		age: user.age > 0,
+	};
+	return result;
+}
+
+```
+</h4>
+<h3> 6. Pick<K,T></h3>
+<h4>
+	
+```
+interface User {
+	id: number;
+	name: string;
+	age: number;
+	gender: "M" | "W";
+}
+
+const admin: Pick<User, "id" | "name"> = {
+	id: 0,
+	name: "Bob"
+}
+
+```
+</h4>
+
+<h3> 7. Omit<K,T></h3>
+<h4>
+	
+```
+interface User {
+	id: number;
+	name: string;
+	age: number;
+	gender: "M" | "W";
+}
+
+const admin: Omit<User, "age" | "gender"> = {
+	id: 0,
+	name: "Bob"
+}
+
+```
+</h4>
+<h3> 8. Exclude<T1, T2></h3>
+<h4>
+	
+```
+type T1 = string | number | boolean;
+type T2 = Exclude<T1, number | string>;		// boolean만 남게 됨.
+
+```
+</h4>
+<h3> 9. NonNullable<Type></h3>
+<h4>
+	
+```
+type T1 = string | null | undefined | void;
+type T2 = NonNullable<T1>;		// string과 void만 남게 됨.
+
+```
+</h4>
